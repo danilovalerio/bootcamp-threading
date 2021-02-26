@@ -29,7 +29,7 @@ class MainViewModel : ViewModel() {
     }
 
     //Função que lança a Task
-    fun launchAstrosTask() {
+    private fun launchAstrosTask() {
         val task = TaskAstros()
         task.execute()
     }
