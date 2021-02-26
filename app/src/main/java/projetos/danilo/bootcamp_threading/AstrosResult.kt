@@ -1,3 +1,13 @@
 package projetos.danilo.bootcamp_threading
 
-//TODO: 009 Criar classe para representar o resultado da api
+import com.google.gson.annotations.SerializedName
+
+/**
+ * Classe para representar o resultado da api
+ */
+
+data class AstrosResult(
+    @SerializedName("message") val message: String,
+    @SerializedName("number") val number: Int,
+    @SerializedName("people") val people: List<AstrosPeople>
+)
