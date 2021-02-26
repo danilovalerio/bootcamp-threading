@@ -1,13 +1,12 @@
 package projetos.danilo.bootcamp_threading
 
-import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
@@ -27,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         initObservers()
 
         btnLoad.setOnClickListener {
-//            viewModel.inicializar()
-            //launchAstrosTask()
             viewModel.interpret(MainInteractor.ClickCarregar)
         }
     }
@@ -57,12 +54,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun exibeBoasVindas(string: String) {
+    private fun exibeBoasVindas(string: String) {
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
     }
 
     //Exibir os dados carregados
-    fun showDataLoad(list: List<AstrosPeople>?) {
+    private fun showDataLoad(list: List<AstrosPeople>?) {
         listAstronauts.text = ""
 
         list?.forEach { item ->
@@ -70,46 +67,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showListaVazia(string: String) {
+    private fun showListaVazia(string: String) {
         listAstronauts.text = string
     }
 
-
     //Exibir a ProgressBar
-    fun showLoadingIndicator() {
+    private fun showLoadingIndicator() {
         pbLoadingData.visibility = View.VISIBLE
     }
 
 
     //Esconder a ProgressBar
-    fun hideLoadingIndicator() {
+    private fun hideLoadingIndicator() {
         pbLoadingData.visibility = View.GONE
-    }
-
-    //Função que lança a Task
-    fun launchAstrosTask() {
-        val task = TaskAstros()
-        task.execute()
-    }
-
-    //classe interna para rodar a tarefa assincrona
-    inner class TaskAstros() : AsyncTask<Void, Int, List<AstrosPeople>>() {
-        val repository = AstrosRepository()
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            showLoadingIndicator()
-        }
-
-        override fun doInBackground(vararg p0: Void?): List<AstrosPeople> {
-            return repository.loadData()
-        }
-
-        override fun onPostExecute(result: List<AstrosPeople>?) {
-            super.onPostExecute(result)
-            hideLoadingIndicator()
-            showDataLoad(result)
-        }
-
     }
 }

@@ -41,7 +41,6 @@ class MainViewModel : ViewModel() {
         override fun onPreExecute() {
             super.onPreExecute()
             event.postValue(MainEvent.ShowLoading)
-//            showLoadingIndicator()
         }
 
         override fun doInBackground(vararg p0: Void?): List<AstrosPeople> {
@@ -50,8 +49,6 @@ class MainViewModel : ViewModel() {
 
         override fun onPostExecute(result: List<AstrosPeople>?) {
             super.onPostExecute(result)
-//            hideLoadingIndicator()
-//            showDataLoad(result)
             event.value = MainEvent.HideLoading
             if (result != null) {
                 state.postValue(MainState.ListaAstrosPeople(result))
