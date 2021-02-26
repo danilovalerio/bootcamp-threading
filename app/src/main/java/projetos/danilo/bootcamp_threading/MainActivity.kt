@@ -7,8 +7,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
+
     private val btnLoad by lazy { findViewById<Button>(R.id.btn_load_data) }
     private val listAstronauts by lazy { findViewById<TextView>(R.id.tv_data) }
     private val pbLoadingData by lazy { findViewById<ProgressBar>(R.id.pb_loading_data) }
@@ -17,9 +24,41 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initObservers()
+
         btnLoad.setOnClickListener {
-            launchAstrosTask()
+//            viewModel.inicializar()
+            //launchAstrosTask()
+            viewModel.interpret(MainInteractor.ClickCarregar)
         }
+    }
+
+    private fun initObservers() {
+        //state Observe
+        viewModel.viewState.observe(this, Observer { viewState ->
+            viewState?.let {
+                when (it) {
+                    is MainState.MensagemBoasVindas -> exibeBoasVindas(it.string)
+                    is MainState.ListaAstrosPeople -> showDataLoad(it.listaAstrosPeople)
+                    is MainState.ListaAstrosPeopleVazia -> showListaVazia(it.string)
+                }
+            }
+        })
+
+        //event Observe
+        viewModel.viewEvent.observe(this, Observer { viewEvent ->
+            viewEvent?.let {
+                when (it) {
+                    is MainEvent.HideLoading -> hideLoadingIndicator()
+                    is MainEvent.ShowLoading -> showLoadingIndicator()
+                }
+            }
+
+        })
+    }
+
+    fun exibeBoasVindas(string: String) {
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
     }
 
     //Exibir os dados carregados
@@ -29,6 +68,10 @@ class MainActivity : AppCompatActivity() {
         list?.forEach { item ->
             listAstronauts.append("${item.name} - ${item.craft} \n\n")
         }
+    }
+
+    fun showListaVazia(string: String) {
+        listAstronauts.text = string
     }
 
 
@@ -50,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //classe interna para rodar a tarefa assincrona
-    inner class TaskAstros(): AsyncTask<Void, Int, List<AstrosPeople>>() {
+    inner class TaskAstros() : AsyncTask<Void, Int, List<AstrosPeople>>() {
         val repository = AstrosRepository()
 
         override fun onPreExecute() {
