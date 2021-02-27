@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val pbLoadingData by lazy { findViewById<ProgressBar>(R.id.pb_loading_data) }
     private val msgConnected by lazy { findViewById<ConstraintLayout>(R.id.cl_no_connected) }
 
+    //TODO: Transformar a lista de astronauta em um RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
