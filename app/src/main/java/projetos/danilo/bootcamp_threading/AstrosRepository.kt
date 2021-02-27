@@ -1,5 +1,6 @@
 package projetos.danilo.bootcamp_threading
 
+import android.util.Log
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -14,6 +15,7 @@ class AstrosRepository {
             .build()
 
         val response = client.newCall(request).execute()
+        Log.i("Teste", "Response: $response")
         val result = parseJsonToResult(response.body?.string())
         return result.people
     }

@@ -7,4 +7,6 @@ package projetos.danilo.bootcamp_threading
 sealed class MainEvent {
     object ShowLoading : MainEvent()
     object HideLoading : MainEvent()
+    object ShowConnectedError: MainEvent()
+    object HideConnectedError: MainEvent()
 }

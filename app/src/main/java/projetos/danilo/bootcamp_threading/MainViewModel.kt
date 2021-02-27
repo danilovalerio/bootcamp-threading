@@ -1,6 +1,10 @@
 package projetos.danilo.bootcamp_threading
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.AsyncTask
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +22,14 @@ class MainViewModel : ViewModel() {
     val viewState: LiveData<MainState> = state
     val viewEvent: LiveData<MainEvent> = event
 
-    fun inicializar() {
-        state.postValue(MainState.MensagemBoasVindas("Bem vindo aqui é a ViewModel Jão"))
+    fun inicializar(isOnline: Boolean) {
+        //state.postValue(MainState.MensagemBoasVindas("Bem vindo aqui é a ViewModel Jão $isOnline"))
+        if (isOnline) {
+            event.value = MainEvent.HideConnectedError
+            launchAstrosTask()
+        }  else {
+            event.postValue(MainEvent.ShowConnectedError)
+        }
     }
 
     fun interpret(interactor: MainInteractor) {

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">bootcamp-threading</string>
+    <string name="texto_carregar">Carregar</string>
 </resources>
