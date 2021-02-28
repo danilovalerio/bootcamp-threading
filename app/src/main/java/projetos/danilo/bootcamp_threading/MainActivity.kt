@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         msgConnected.visibility = View.VISIBLE
         listAstronauts.visibility = View.GONE
         hideLoadingIndicator()
-        btnLoad.text = "recarregar"
+        btnLoad.text = getString(R.string.btn_recarregar)
     }
 
     //Quando estiver sem conexão de internet
