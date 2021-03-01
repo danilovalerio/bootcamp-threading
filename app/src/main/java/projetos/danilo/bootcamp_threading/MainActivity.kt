@@ -1,6 +1,7 @@
 package projetos.danilo.bootcamp_threading
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,14 @@ class MainActivity : AppCompatActivity() {
 //            viewModel.interpret(MainInteractor.ClickCarregar)
             viewModel.inicializar(isConnected(baseContext))
         }
+
+
+    }
+
+    private fun setupRecyclerView() {
+        rvAstrosPeople.visibility = View.VISIBLE
+        rvAstrosPeople.layoutManager = LinearLayoutManager(this)
+        rvAstrosPeople.adapter = adapter
     }
 
     private fun initObservers() {
@@ -72,23 +81,13 @@ class MainActivity : AppCompatActivity() {
 
     //Exibir os dados carregados
     private fun showDataLoad(list: List<AstrosPeople>?) {
-//        listAstronauts.text = ""
-//        listAstronauts.visibility = View.VISIBLE
-//
-//        list?.forEach { item ->
-//            listAstronauts.append("${item.name} - ${item.craft} \n\n")
-//        }
-//
-        rvAstrosPeople.visibility = View.VISIBLE
-        rvAstrosPeople.adapter = adapter
-        rvAstrosPeople.layoutManager = LinearLayoutManager(this)
+        setupRecyclerView()
         if (list != null) {
             adapter.update(list)
         }
     }
 
     private fun showListaVazia(string: String) {
-        //listAstronauts.text = string
         adapter.update(mutableListOf())
     }
 
@@ -107,7 +106,6 @@ class MainActivity : AppCompatActivity() {
     private fun showConnectError() {
         msgConnected.visibility = View.VISIBLE
         rvAstrosPeople.visibility = View.GONE
-//        listAstronauts.visibility = View.GONE
         hideLoadingIndicator()
         btnLoad.text = getString(R.string.btn_recarregar)
     }
@@ -115,6 +113,5 @@ class MainActivity : AppCompatActivity() {
     //Quando estiver sem conexão de internet
     private fun hideConnectError() {
         rvAstrosPeople.visibility = View.GONE
-//        msgConnected.visibility = View.GONE
     }
 }
