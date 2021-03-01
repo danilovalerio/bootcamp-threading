@@ -26,6 +26,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Danilo Valério" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_astros_people"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_load_data"
+            tools:listitem="@layout/astro_people_item"/>
+
         <ProgressBar
             android:id="@+id/pb_loading_data"
             android:layout_width="56dp"

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,10 +16,15 @@ class MainActivity : AppCompatActivity() {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
+    private val adapter = AstrosPeopleAdapter()
+
     private val btnLoad by lazy { findViewById<Button>(R.id.btn_load_data) }
     private val listAstronauts by lazy { findViewById<TextView>(R.id.tv_data) }
     private val pbLoadingData by lazy { findViewById<ProgressBar>(R.id.pb_loading_data) }
     private val msgConnected by lazy { findViewById<ConstraintLayout>(R.id.cl_no_connected) }
+    private val rvAstrosPeople by lazy { findViewById<RecyclerView>(R.id.rv_astros_people) }
+
+
 
     //TODO: Transformar a lista de astronauta em um RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,11 +73,17 @@ class MainActivity : AppCompatActivity() {
 
     //Exibir os dados carregados
     private fun showDataLoad(list: List<AstrosPeople>?) {
-        listAstronauts.text = ""
-        listAstronauts.visibility = View.VISIBLE
-
-        list?.forEach { item ->
-            listAstronauts.append("${item.name} - ${item.craft} \n\n")
+//        listAstronauts.text = ""
+//        listAstronauts.visibility = View.VISIBLE
+//
+//        list?.forEach { item ->
+//            listAstronauts.append("${item.name} - ${item.craft} \n\n")
+//        }
+//
+        rvAstrosPeople.adapter = adapter
+        rvAstrosPeople.layoutManager = LinearLayoutManager(this)
+        if (list != null) {
+            adapter.update(list)
         }
     }
 
