@@ -14,18 +14,6 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <TextView
-            android:id="@+id/tv_data"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Danilo Valério" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_astros_people"
             android:layout_width="match_parent"
@@ -84,13 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_no_connected"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
         <Button
             android:id="@+id/btn_load_data"
@@ -102,7 +84,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_data"
             app:layout_constraintVertical_bias="0.988"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

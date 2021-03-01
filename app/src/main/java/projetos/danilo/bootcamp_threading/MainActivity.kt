@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private val adapter = AstrosPeopleAdapter()
 
     private val btnLoad by lazy { findViewById<Button>(R.id.btn_load_data) }
-    private val listAstronauts by lazy { findViewById<TextView>(R.id.tv_data) }
     private val pbLoadingData by lazy { findViewById<ProgressBar>(R.id.pb_loading_data) }
     private val msgConnected by lazy { findViewById<ConstraintLayout>(R.id.cl_no_connected) }
     private val rvAstrosPeople by lazy { findViewById<RecyclerView>(R.id.rv_astros_people) }
@@ -80,6 +79,7 @@ class MainActivity : AppCompatActivity() {
 //            listAstronauts.append("${item.name} - ${item.craft} \n\n")
 //        }
 //
+        rvAstrosPeople.visibility = View.VISIBLE
         rvAstrosPeople.adapter = adapter
         rvAstrosPeople.layoutManager = LinearLayoutManager(this)
         if (list != null) {
@@ -88,7 +88,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showListaVazia(string: String) {
-        listAstronauts.text = string
+        //listAstronauts.text = string
+        adapter.update(mutableListOf())
     }
 
     //Exibir a ProgressBar
@@ -105,13 +106,15 @@ class MainActivity : AppCompatActivity() {
     //Quando estiver sem conexão de internet
     private fun showConnectError() {
         msgConnected.visibility = View.VISIBLE
-        listAstronauts.visibility = View.GONE
+        rvAstrosPeople.visibility = View.GONE
+//        listAstronauts.visibility = View.GONE
         hideLoadingIndicator()
         btnLoad.text = getString(R.string.btn_recarregar)
     }
 
     //Quando estiver sem conexão de internet
     private fun hideConnectError() {
-        msgConnected.visibility = View.GONE
+        rvAstrosPeople.visibility = View.GONE
+//        msgConnected.visibility = View.GONE
     }
 }
