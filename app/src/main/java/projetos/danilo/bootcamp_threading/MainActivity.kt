@@ -1,9 +1,10 @@
 package projetos.danilo.bootcamp_threading
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private val rvAstrosPeople by lazy { findViewById<RecyclerView>(R.id.rv_astros_people) }
 
 
-
     //TODO: Transformar a lista de astronauta em um RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         initObservers()
 
         btnLoad.setOnClickListener {
-//            viewModel.interpret(MainInteractor.ClickCarregar)
             viewModel.inicializar(isConnected(baseContext))
         }
 
@@ -112,6 +111,6 @@ class MainActivity : AppCompatActivity() {
 
     //Quando estiver sem conexão de internet
     private fun hideConnectError() {
-        rvAstrosPeople.visibility = View.GONE
+        msgConnected.visibility = View.GONE
     }
 }
