@@ -21,14 +21,8 @@ class AstrosRepository {
 
             val response = client.newCall(request).execute()
             Log.i("Teste", "Response: $response")
-            val result = parseJsonToResult(response.body?.string())
+            val result = parseJsonToResultClass(response.body?.string(), AstrosResult::class.java)
             return@async result.people
         }
     }
-
-    //TODO: Criar uma função util que receba o json e a classe model para a mesma
-    //Função para converter o json
-    fun parseJsonToResult(json: String?) =
-        Gson().fromJson(json, AstrosResult::class.java)
-
 }
